@@ -40,10 +40,14 @@ body {
   margin: 0 auto;
 }
 
-header {
-  height: 52px;
+.header {
   display: flex;
   justify-content: center;
+  align-items: center;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 header div {
@@ -75,4 +79,10 @@ input {
   height: 25px;
   border-radius: 10px;
   margin: 24px 20% 0 20%;
+}
+
+.content {
+  z-index: 1;
+  background-color: #02053c;
+  position: inherit;
 }

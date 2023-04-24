@@ -1,51 +1,76 @@
 <div id="wrapper">
   <div id="container">
-    <div class="header">
+    <div class="header-menu">
       <img (click)="backBtn()" src="../../../assets/arrow left_.svg" alt="" />
     </div>
-    <header>  
+    <div class="header">
       <img class="logo__img" src="../../assets/logo.png" />
-    </header>
+    </div>
   </div>
 </div>
 
-<div>
-  <h1 class="title">Cadastrar </h1>
-</div>
 <div class="input">
+  <div>
+    <h1 class="title">Cadastrar</h1>
+  </div>
   <form action="" class="form" [formGroup]="form">
     <label for="nome"
       >Nome e Sobrenome <span style="color: red; padding-left: 2px"> *</span>
     </label>
-    <input placeholder="Ex: José Gomes" formControlName="nome" type="text" name="nome" required />
+    <input
+      placeholder="Ex: José Gomes"
+      formControlName="nome"
+      type="text"
+      name="nome"
+      required
+    />
 
     <label for="email"
       >E-mail <span style="color: red; padding-left: 2px"> *</span></label
     >
-    <input placeholder="Ex: email@email.com" formControlName="email" type="email" name="email" required />
+    <input
+      placeholder="Ex: email@email.com"
+      formControlName="email"
+      type="email"
+      name="email"
+      required
+    />
 
     <label for="link"
       >LinkedIn <span style="color: red; padding-left: 2px"> *</span></label
     >
-    <input placeholder="Ex: https://www.linkedin.com/seuususario" formControlName="linkedin" type="text" name="linkedin" required />
+    <input
+      placeholder="Ex: https://www.linkedin.com/seuususario"
+      formControlName="linkedin"
+      type="text"
+      name="linkedin"
+      required
+    />
 
     <label for="pass"
       >Senha <span style="color: red; padding-left: 2px"> *</span></label
     >
-    <input placeholder="Ex: @fAtec1" formControlName="senha" type="password" name="pass" required />
+    <input
+      placeholder="Ex: @fAtec1"
+      formControlName="senha"
+      type="password"
+      name="pass"
+      required
+    />
 
     <label for="pass"
-    >Foto de Perfil <span style="color: red; padding-left: 2px"> *</span></label
-  >
+      >Foto de Perfil
+      <span style="color: red; padding-left: 2px"> *</span></label
+    >
     <input
-    formControlName="fotoPerfil"
-    type="file"
-    accept="image/*"
-    name="file"
-    required
-    class="foto"
-    (change)="onInputChanged($event)"
-  />
+      formControlName="fotoPerfil"
+      type="file"
+      accept="image/*"
+      name="file"
+      required
+      class="foto"
+      (change)="onInputChanged($event)"
+    />
 
     <footer class="btn">
       <button

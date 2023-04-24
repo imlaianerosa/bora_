@@ -1,20 +1,19 @@
 <div id="wrapper">
   <div id="container">
-    <div class="header">
+    <div class="header-menu">
       <img (click)="backBtn()" src="../../../assets/arrow left_.svg" alt="" />
     </div>
-    <header>
+    <div class="header">
       <img class="logo__img" src="../../assets/logo.png" />
-    </header>
+    </div>
     <div id="content"></div>
   </div>
 </div>
 
-<div>
-  <h1 class="title">Evento</h1>
-</div>
-
 <div class="input">
+  <div>
+    <h1 class="title">Evento</h1>
+  </div>
   <form action="" class="form" [formGroup]="form">
     <label for="evento"
       >Nome do evento <span style="color: red; padding-left: 2px"> *</span>
