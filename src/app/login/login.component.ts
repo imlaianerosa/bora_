@@ -18,13 +18,14 @@ export class LoginComponent extends BaseBoraComponent {
     senha: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern(/^(?=.*[A-Z])(?=.*\d)/),
+      // Validators.pattern(/^(?=.*[A-Z])(?=.*\d)/),
     ]),
   });
 
   submitted = false;
   idUsuario: any;
-
+  mostrarModal = false
+  erro: string
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -42,13 +43,8 @@ export class LoginComponent extends BaseBoraComponent {
         .putEsqueciMinhaSenha(this.form.controls.email.value)
         .subscribe(
           (success) =>
-            alert(
-              'E-mail de redefinição de senha enviado para ' +
-                this.form.controls.email.value +
-                '.'
-            ),
-          (error) => alert('Erro ao tentar redefinir senha :('),
-          () => console.log('request completo')
+           this.openModalSucesso(),
+          (error) => this.openModalFalha(),
         );
     }
   }
@@ -63,7 +59,7 @@ export class LoginComponent extends BaseBoraComponent {
       if (this.idUsuario) {
         this.goToFeed();
       } else {
-        alert('Usuário ou senha incorreta');
+        this.openModalFalhaLogin();
       }
     }, 1000);
   }
@@ -74,5 +70,24 @@ export class LoginComponent extends BaseBoraComponent {
 
   goToFeed() {
     this.router.navigate(['/feed']);
+  }
+
+  openModalSucesso() {
+    this.erro = "E-mail de redefinição de senha enviado."
+    this.mostrarModal = true;
+  }
+
+  openModalFalha() {
+    this.erro = "Erro ao tentar redefinir senha :("
+    this.mostrarModal = true;
+  }
+
+  openModalFalhaLogin() {
+    this.erro = "Usuário ou senha incorreta"
+    this.mostrarModal = true;
+  }
+
+  closeModal() {
+    this.mostrarModal = false;
   }
 }
