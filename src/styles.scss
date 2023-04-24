@@ -54,8 +54,8 @@ header div {
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  bottom: -200px;
   color: #fff;
   width: 100%;
   height: 100px;
@@ -63,14 +63,14 @@ footer {
   line-height: 100px;
 }
 
-label{
+label {
   margin-top: 10px;
   text-align: center;
   color: white;
   size: 1em;
 }
 
-input{
+input {
   width: 60%;
   height: 25px;
   border-radius: 10px;
