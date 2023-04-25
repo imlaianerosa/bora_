@@ -22,7 +22,7 @@ export class CadastroComponent {
       Validators.minLength(8),
       Validators.pattern(/^(?=.*[A-Z])(?=.*\d)/),
     ]),
-    fotoPerfil: new FormControl('', Validators.required),
+    fotoPerfil: new FormControl('',),
   });
 
   submitted = false;
@@ -32,7 +32,7 @@ export class CadastroComponent {
 
   constructor(
     private router: Router,
-    private cadastroService: CadastroService
+    private cadastroService: CadastroService, 
   ) {}
 
   ngOnInit(): void {}
@@ -65,6 +65,8 @@ export class CadastroComponent {
       );
     }
   }
+
+  
 
   goToLogin() {
     this.router.navigate(['/login']);
