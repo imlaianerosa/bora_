@@ -24,8 +24,8 @@ export class ChatComponent extends BaseBoraComponent {
   mensagemEnviada: any;
   mensagemRecebida: any;
   dadoUsuarioMensagem: any;
-  nomeUser: any
-  fotoUser: any
+  nomeUser: any;
+  fotoUser: any;
 
   constructor(
     private router: Router,
@@ -38,28 +38,28 @@ export class ChatComponent extends BaseBoraComponent {
 
   ngOnInit(): void {
     // this.getMessages();
-    this.getDadosUser()
-    this.getMensagem()
+    this.getDadosUser();
+    this.getMensagem();
   }
 
-  ngOnChanges(){
-    this.getMensagem()
+  ngOnChanges() {
+    this.getMensagem();
   }
 
-  getDadosUser(){
-    const idUserEvento = this.store.getIdUsuarioEvento()
+  getDadosUser() {
+    const idUserEvento = this.store.getIdUsuarioEvento();
 
     this.chatService
       .getDadosUsuarios(idUserEvento)
       .subscribe((dados) => (this.dadoUsuarioMensagem = dados));
 
-      setTimeout(() => {
-        this.nomeUser = this.dadoUsuarioMensagem[0].nome;
-        this.fotoUser = this.dadoUsuarioMensagem[0].fotoPerfil
-      }, 1500);
+    setTimeout(() => {
+      this.nomeUser = this.dadoUsuarioMensagem[0].nome;
+      this.fotoUser = this.dadoUsuarioMensagem[0].fotoPerfil;
+    }, 1500);
   }
 
-  getMensagem(){
+  getMensagem() {
     this.chatService
       .getMessages()
       .subscribe((dados) => (this.mensagem = dados));
@@ -136,7 +136,7 @@ export class ChatComponent extends BaseBoraComponent {
     this.router.navigate(['/conversas']);
   }
 
- toggleMenu(): void {
+  toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
 

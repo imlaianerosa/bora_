@@ -11,7 +11,7 @@ import { BoraStore } from '../store/bora.store';
 })
 export class ConversasComponent extends BaseBoraComponent {
   menuOpen = false;
-  conversas: any;
+  mensagens: any;
   pessoaConversa: [{}];
 
   constructor(
@@ -24,28 +24,58 @@ export class ConversasComponent extends BaseBoraComponent {
 
   ngOnInit(): void {
     this.service.getMessages().subscribe((dados: any[]) => {
-      this.conversas = dados;
+      this.mensagens = dados;
     });
-    setTimeout(() => {
-      for (let i = 0; i < this.conversas.length; i++) {
-        if (!this.pessoaConversa.find(this.conversas[i].idUsuDestino)) {
-          if (
-            this.conversas[i].idUsuDestino !==
-            this.boraStore.getIdUsuarioLogado()
-          ) {
-            this.pessoaConversa.push(this.conversas[i].idUsuDestino);
-          }
-        }
 
-        if (!this.pessoaConversa.find(this.conversas[i].idUsuario)) {
-          if (
-            this.conversas[i].idUsuario !== this.boraStore.getIdUsuarioLogado()
-          ) {
-            this.pessoaConversa.push(this.conversas[i].idUsuario);
-          }
-        }
+    // this.listarUser()
+    // setTimeout(() => {
+    //   for (let i = 0; i < this.conversas.length; i++) {
+    //     if (this.pessoaConversa.filter(this.conversas[i].idUsuDestino)) {
+    //       if (
+    //         this.conversas[i].idUsuDestino !==
+    //         this.boraStore.getIdUsuarioLogado()
+    //       ) {
+    //         this.pessoaConversa.push(this.conversas[i].idUsuDestino);
+    //       }
+    //     }
+
+    //     if (this.pessoaConversa.filter(this.conversas[i].idUsuario)) {
+    //       if (
+    //         this.conversas[i].idUsuario !== this.boraStore.getIdUsuarioLogado()
+    //       ) {
+    //         this.pessoaConversa.push(this.conversas[i].idUsuario);
+    //       }
+    //     }
+    //   }
+    // }, 2000);
+    // setTimeout(() => {
+    //   console.log(this.pessoaConversa)
+    // }, 3000);
+  }
+
+  listarUser() {
+    this.service.getMessages().subscribe((dados: any[]) => {
+      this.mensagens = dados;
+    });
+
+    const idUsuarioLogado = this.boraStore.getIdUsuarioLogado(); // ID do usuário logado
+    const idsUsuarios: any[] = []; // Lista vazia para armazenar os IDs dos usuários que trocaram mensagem com o usuário logado
+
+    this.mensagens.forEach((mensagem: { idUsuario: any; idUsuDestino: any; }) => {
+      const remetente = mensagem.idUsuario;
+      const destinatario = mensagem.idUsuDestino;
+
+      // Se o remetente ou destinatário da mensagem for o usuário logado, adicionamos o ID do outro usuário na lista
+      if (remetente === idUsuarioLogado) {
+        idsUsuarios.push(destinatario);
+      } else if (destinatario === idUsuarioLogado) {
+        idsUsuarios.push(remetente);
       }
-    }, 1000);
+
+      setTimeout(() => {
+        console.log(idsUsuarios)
+      }, 1500);
+    });
   }
 
   goToChat() {
