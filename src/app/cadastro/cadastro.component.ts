@@ -40,24 +40,6 @@ export class CadastroComponent {
 
   ngOnInit(): void {}
 
-  takePicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true
-    };
-
-    this.camera.getPicture(options).then(imageData => {
-      const base64Image = 'data:image/jpeg;base64,' + imageData;
-      console.log(base64Image);
-      // faça algo com a imagem capturada
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-
   onInputChanged(event: any) {
     let targetEvent = event.target;
     let file: Blob = targetEvent.files[0];
@@ -65,7 +47,6 @@ export class CadastroComponent {
 
     fileReader.onload = (e) => {
       this.base64 = fileReader.result;
-      console.log('the res ', this.base64);
     };
     fileReader.readAsDataURL(file);
   }

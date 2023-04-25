@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
 import { BoraStore } from '../store/bora.store';
 
 @Injectable({
@@ -10,6 +10,8 @@ export class ChatService {
 
   ENVIAR_MSG = 'https://tg-bora-api.vercel.app/setmensagens';
   GET_MENSAGEM = 'https://tg-bora-api.vercel.app/getmensagembyId/';
+  private readonly GET_USUARIO_BY_ID =
+  'https://tg-bora-api.vercel.app/getusuariosbyid/';
 
   constructor(private http: HttpClient, private boraStore: BoraStore) {}
 
@@ -19,5 +21,9 @@ export class ChatService {
 
   getMessages(): Observable<any> {
     return this.http.get(`${this.GET_MENSAGEM}${this.boraStore.getIdUsuarioLogado()}`).pipe(take(1));
+  }
+
+  getDadosUsuarios(id: any){
+    return this.http.get<any[]>(`${this.GET_USUARIO_BY_ID}${id}`).pipe(tap(console.log));
   }
 }

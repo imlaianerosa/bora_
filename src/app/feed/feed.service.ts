@@ -28,8 +28,8 @@ export class FeedService {
     return this.http.get<FeedResponse[]>(this.APIEVENTO).pipe(tap(console.log));
   }
 
-  getDadosUsuarios(data: string){
-    return this.http.get<any[]>(`${this.APIUSUARIO}${data}`).pipe(tap(console.log));
+  getDadosUsuarios(id: string){
+    return this.http.get<any[]>(`${this.APIUSUARIO}${id}`).pipe(tap(console.log));
   }
 
   getUserById(data: string){

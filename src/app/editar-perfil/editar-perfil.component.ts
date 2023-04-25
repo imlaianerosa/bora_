@@ -41,7 +41,6 @@ export class EditarPerfilComponent extends BaseBoraComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.boraStore.getIdUsuarioLogado());
   }
 
   putDadosUsuario() {

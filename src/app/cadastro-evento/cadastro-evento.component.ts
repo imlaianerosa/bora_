@@ -28,7 +28,6 @@ export class CadastroEventoComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.store.getIdUsuarioLogado());
   }
 
   postEvento() {
@@ -41,14 +40,11 @@ export class CadastroEventoComponent {
       dataEvento: this.form.controls.dataEvento.value,
       idUsuario: this.store.getIdUsuarioLogado(),
     };
-    console.log(postEvento);
     if (this.form.valid) {
-      console.log('submit');
       this.eventoService.postEventos(postEvento).subscribe(
         (success) => alert('Evento cadastrado com sucesso!'),
         (error) =>
           alert('Erro ao cadastrar evento. Tente novamente mais tarde'),
-        () => console.log('request completo')
       );
       setTimeout(() => {
         this.router.navigate(['/feed']);

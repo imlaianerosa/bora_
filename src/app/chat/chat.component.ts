@@ -21,39 +21,86 @@ export class ChatComponent extends BaseBoraComponent {
   mensagem: any;
   messages: any[];
   newMessage: string;
+  mensagemEnviada: any;
+  mensagemRecebida: any;
+  dadoUsuarioMensagem: any;
+  nomeUser: any
+  fotoUser: any
 
   constructor(
     private router: Router,
     private chatService: ChatService,
     private store: BoraStore,
-    private cd: ChangeDetectorRef 
+    private cd: ChangeDetectorRef
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.getMessages();
+    // this.getMessages();
+    this.getDadosUser()
+    this.getMensagem()
+  }
 
+  ngOnChanges(){
+    this.getMensagem()
+  }
+
+  getDadosUser(){
+    const idUserEvento = this.store.getIdUsuarioEvento()
+
+    this.chatService
+      .getDadosUsuarios(idUserEvento)
+      .subscribe((dados) => (this.dadoUsuarioMensagem = dados));
+
+      setTimeout(() => {
+        this.nomeUser = this.dadoUsuarioMensagem[0].nome;
+        this.fotoUser = this.dadoUsuarioMensagem[0].fotoPerfil
+      }, 1500);
+  }
+
+  getMensagem(){
     this.chatService
       .getMessages()
       .subscribe((dados) => (this.mensagem = dados));
+
     setTimeout(() => {
-      console.log(this.mensagem);
-    }, 2000);
+      this.mensagemEnviada = this.mensagem.filter(
+        (mensagem: { idUsuario: any; idUsuDestino: any }) => {
+          return (
+            mensagem.idUsuario === this.store.getIdUsuarioLogado() &&
+            mensagem.idUsuDestino === this.store.getIdUsuarioEvento()
+          );
+        }
+      );
+      console.log('MENSAGEM ENVIADA', this.mensagemEnviada);
+    }, 1500);
+
+    setTimeout(() => {
+      this.mensagemRecebida = this.mensagem.filter(
+        (mensagem: { idUsuario: any; idUsuDestino: any }) => {
+          return (
+            mensagem.idUsuario === this.store.getIdUsuarioEvento() &&
+            mensagem.idUsuDestino === this.store.getIdUsuarioLogado()
+          );
+        }
+      );
+      console.log('MENSAGEM RECEBIDA', this.mensagemRecebida);
+    }, 1500);
   }
 
   getMessages(): void {
-    this.chatService.getMessages()
-      .subscribe(messages => this.messages = messages);
-      this.cd
+    this.chatService
+      .getMessages()
+      .subscribe((messages) => (this.messages = messages));
+    this.cd;
   }
 
   sendMessage(): void {
-    this.chatService.sendMessage(this.newMessage)
-      .subscribe(() => {
-        this.newMessage = '';
-        this.getMessages();
-      });
+    this.chatService.sendMessage(this.newMessage).subscribe(() => {
+      this.newMessage = '';
+      this.getMessages();
+    });
   }
 
   postMensagem() {
@@ -89,7 +136,7 @@ export class ChatComponent extends BaseBoraComponent {
     this.router.navigate(['/conversas']);
   }
 
-  public toggleMenu(): void {
+ toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
 

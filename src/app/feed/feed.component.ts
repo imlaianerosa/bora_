@@ -46,9 +46,6 @@ export class FeedComponent extends BaseBoraComponent {
       this.eventos = dados;
     });
 
-
-
-
     this.feedService.getEventos().subscribe(publicacoes => {
       this.eventos = publicacoes;
       setTimeout(() => {
@@ -65,8 +62,6 @@ export class FeedComponent extends BaseBoraComponent {
 
   onItemClick(index: number): void {
     this.boraStore.setIdUsuarioEvento(this.eventos[index].idUsuario);
-    console.log(this.boraStore.getIdUsuarioEvento());
-    console.log(`Item ${index} clicado`);
     this.router.navigate(['/chat']);
   }
 

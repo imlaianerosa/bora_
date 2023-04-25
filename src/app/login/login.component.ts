@@ -14,8 +14,8 @@ import { BaseBoraComponent } from '../shared/components/base-bora/base-bora.comp
 })
 export class LoginComponent extends BaseBoraComponent {
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    senha: new FormControl('', [
+    email: new FormControl('laianerosasi@gmail.com', [Validators.required, Validators.email]),
+    senha: new FormControl('@Laiane18', [
       Validators.required,
       Validators.minLength(8),
       // Validators.pattern(/^(?=.*[A-Z])(?=.*\d)/),
@@ -38,7 +38,6 @@ export class LoginComponent extends BaseBoraComponent {
 
   putAlteraSenha() {
     if (this.form.controls.email) {
-      console.log('submit');
       this.loginService
         .putEsqueciMinhaSenha(this.form.controls.email.value)
         .subscribe(
@@ -55,7 +54,6 @@ export class LoginComponent extends BaseBoraComponent {
       .subscribe((dados) => (this.idUsuario = dados));
     setTimeout(() => {
       this.boraStore.setIdUsuarioLogado(this.idUsuario);
-      console.log(this.idUsuario)
       if (this.idUsuario) {
         this.goToFeed();
       } else {
