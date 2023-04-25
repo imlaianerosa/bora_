@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CadastroService } from './cadastro.service';
 import { Usuarios } from './cadastro';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
 
 @Component({
   selector: 'app-cadastro',
@@ -33,9 +35,28 @@ export class CadastroComponent {
   constructor(
     private router: Router,
     private cadastroService: CadastroService, 
+    private camera: Camera
   ) {}
 
   ngOnInit(): void {}
+
+  takePicture() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
+    };
+
+    this.camera.getPicture(options).then(imageData => {
+      const base64Image = 'data:image/jpeg;base64,' + imageData;
+      console.log(base64Image);
+      // faça algo com a imagem capturada
+    }).catch(error => {
+      console.log(error);
+    });
+  }
 
   onInputChanged(event: any) {
     let targetEvent = event.target;
@@ -65,6 +86,8 @@ export class CadastroComponent {
       );
     }
   }
+
+
 
   
 
